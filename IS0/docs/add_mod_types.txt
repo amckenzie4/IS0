@@ -1,0 +1,200 @@
+add_mod_types.txt
+-----------------
+
+  There are a number of standard types you can use in the add/mod form.
+This file contains an explanation of the variables that can be used in each
+type.  The standard for setting them up is to use module_variables.inc within
+the module directory.  A given column entry is in the form:
+
+'col' => array([key] => [value],
+	       ...
+	       [key] => [value]
+	       ),
+
+   In the definition for each type, the key/value pairs will be marked as to
+which are required and which are optional.
+
+
+UNIVERSAL OPTIONS
+-----------------
+'default' => [value]
+   Optional.  This defines the default value for the column
+
+'prompt' => [value]
+	This allows you to insert a short comment between the name of the field and
+	 the entry box which will only appear in the add and modify screens.  It 
+	 is really intended for defining what the entry should look like.  For 
+	 instance, you may want a host location field to show like this:
+	    Location (ie, BLDG1234a): __________________
+
+'test' => 'yes'  NOT YET IMPLEMENTED
+	This has one possible value:  either it's defined, or it isn't.  This tells 
+	 the script to run a test on the value as it's entered via javascript.  
+	 The actual test should be built in add_mod_tests.php -- see that file for 
+	 details.  Right now this is only implemented for the text input type:  
+	 there isn't a whole lot of value in testing drop boxes or check-boxes, 
+	 but I'll add the functionality eventually.
+	 NOTE:  This uses the "onkeyup" event.  If you also try to use 
+	 that event with the "jscript" directive, "jscript" will not work!
+
+'div' => 'yes'
+	This inserts an empty div tag immediately following the input field.  My 
+	 reason for including it is so that you can use javascript to put things in 
+	 it: specifically, text from the 'test' tool or output from another piece 
+	 of javascript.  The div will be named for the column, plus "_div".  So if 
+	 the div is attached to the column "foo", the div code will be:
+	 <div id="foo_div"></div>
+
+JavaScript
+----------
+  These are universal, but require a lot more knowledge to use.  I strongly 
+recommend that you only experiment with these if you know what you're doing.  
+Since I don't know a lot of JS myself, it's possible these may react oddly.  
+Also, please be aware that if you use any of these three fields, you MUST use 
+all of them.  The form creator actually checks that all of them are are set, 
+and that jscript is set to 'yes'.  If any is missing, or jscript does not 
+equal 'yes', the entire thing will be skipped.
+
+IMPLEMENTED, BUT NOT FULLY TESTED!
+
+'jscript' => 'yes'
+	Complete free-form scripting.  This allows you to call any script on any
+	 action.  The scripts are stored in add_mod_jscript.php -- see that file 
+	 for details.  Also, see the next two options, which determines what runs 
+	 and when.
+
+'js_on_what' => [value]
+	This can be any standard JS on___ command.  For instance, onkeyup, 
+	 onchange, onkeydown, and so on.
+
+'js_do_what' => [value]
+	This is the value assigned to js_on_what.  For instance, you might set 
+	 js_on_what = onkeyup and then set js_do_what = checkvalue(this.name, 
+	 this.value).  You would then end up with an input that included this: 
+	 <input ... onkeyup="checkvalue(this.name,this.value)" ...>.
+	 That would result in 
+
+Special
+-------
+NOT YET IMPLEMENTED
+
+  This allows you to customize a field completely by bypassing the automated
+tool.  If type is set to 'special', the special input function is called with
+the name of the column as an argument.  
+
+'type' => 'special'  
+   This is basically to allow you to customize how a field is displayed.
+	
+Text
+----
+  This is the standard type, and will be assumed if no type is defined.
+
+'type' => 'text'
+   This is standard.  If no type is declared, this will be assumed.
+
+'size' => [size]
+   Optional.  This is the length of the text box.  If not specified, the
+    default is 30 for most fields, and 60 if the name of the field is 
+    'comments'.
+
+Textarea
+--------
+	A simple text area.
+
+'type' => 'textarea'
+	Required to define the type.
+
+'rows' => [number of rows]
+	This optional directive tells the script how high to make the text
+	 area.  The default is 4.
+
+'columns' => [number of columns]
+	This optional directive tells the script how wide to make the text
+	 area.  The default is 40.
+
+Dropbox from table
+------------------
+   This generates a drop box from the contents of one column of one table.
+The table can be almost anything, as long as the database it's in is defined
+in the config_db.ini file.
+
+
+'type' => 'dropfromtable'
+   Required to define the type.
+
+'db' => [name of section from config_db.ini]
+   This optional directive defines a database section.  If not defined,
+    the script assumes it should use the section 'database'.
+
+'table' => [name of table in db]
+   This is a required field, and tells the script which table to look at.
+
+'column' => [name of column in table]
+   This is the column to use.  Note that, by default, every entry will be
+    entered as an option in the drop box, so be cautious as to what table you
+    use.
+
+'value_column' => [name of column in table]
+   The default for this is the value from the first column specified, but this
+	 allows you to have a situation where one column is the human-readable 
+    name and a second column is the meaning.  For instance, 'column' could 
+    contain a department name, and 'value_column' could contain a code the 
+	 program finds valuable.
+
+'sql' => [WHERE something]
+   This allows you to limit the number of options in the drop box.  Use it with
+    caution, since it is NOT escaped, and is possible to do damage with.  The
+    SQL you enter here is entered after the query "SELECT column FROM table ",
+    and can be anything that would normally be allowed.
+
+
+Dropbox from array
+------------------
+  This generates a drop box from an array of name/value pairs.
+
+'type' => 'dropfromarray'
+   Required to define the type.
+
+'options' => array([option name] => [option value], ...)
+   Required.  This is an associative array where the key is the name of the
+    option and the value is the value of the option.
+
+
+Checkbox
+--------
+  This generates a single check box from an array with a single name/value pair.
+
+'type' => 'checkbox'
+   Required to define the type.
+
+'option' => [option value]
+   Required.  This is the value sent if the box is checked.
+
+'checked' => [yes|no]
+   Optional.  The default is no, and this determines whether the box starts out
+    checked.
+
+Radio buttons
+-------------
+NOT YET IMPLEMENTED
+
+  This generates a set of radio buttons based on an array of name/value pairs.
+
+'type' => 'radio'
+   Required to define the type.
+
+'options' => array([option name] => [option value], ...)
+   Required.  This is an associative array where the key is the name of the
+    option and the value is the value of the option.
+
+
+
+
+
+
+
+
+
+
+
+

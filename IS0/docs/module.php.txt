@@ -1,0 +1,12 @@
+
+
+A query like this:
+
+$query = "SELECT type, COUNT(name) FROM products GROUP BY type"; 
+
+returns something like this:
+
+There are 2 Clothing items.
+There are 1 Food items.
+There are 3 Music items.
+There are 2 Toy items.

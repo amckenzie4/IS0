@@ -1,0 +1,11 @@
+messages.txt
+------------
+
+
+   Since it is sometimes desireable to redirect a to a page rather than 
+including it, the temp_message system allows you to pass a short message to
+a new page.  It uses two session variables:  temp_message and 
+temp_message_level.  Any level used by the logger can be used in temp_message_
+level, plus "dnr".  If the level is set to "dnr", the message will be written
+to the screen:  if the level is one recognized by the logger, it will also be
+written to the log.

@@ -1,0 +1,6 @@
+departments
+zones
+groups
+subnets
+hosts
+operating_systems

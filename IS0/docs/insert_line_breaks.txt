@@ -1,0 +1,4 @@
+This command will insert line breaks into the html output:
+
+:%s/>';/>' . "\\n";/
+

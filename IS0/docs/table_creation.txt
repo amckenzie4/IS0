@@ -1,0 +1,11 @@
+Table Creation
+--------------
+
+
+  In general, this system can work with any table in mysql or postgres.  
+However, I made a few assumptions, and if you follow these guidelines, your
+job of creating a module will be easier.
+
+1) Always include an id column with type serial:  several things (delete,
+modify, and so on) rely on the id column as a unique column that will never 
+change.

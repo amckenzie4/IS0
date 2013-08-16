@@ -1,0 +1,5 @@
+To duplicate table:
+create table sample.prefs as select * from carik.prefs;
+
+ALWAYS use include_once to include common_db!
+

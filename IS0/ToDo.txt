@@ -1,0 +1,25 @@
+To Do:  (* indicates finished)
+==============================
+
+general
+-------
+- set upto allow selection of available tables via user prefs
+- set up option of module bar at top of all pages
+
+core
+----
+- update security
+	- check to see if browser string has changed
+
+
+add_mod
+-------
+- Implement test option (DONE)
+- Implement type 'special'
+- Implement type 'radio'
+
+
+output
+------
+- implement building of dhcpd.conf and zone files
+- implement restarting dhcpd and named on remote server

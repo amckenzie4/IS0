@@ -1,0 +1,12 @@
+Design.txt
+----------
+
+  While most of the design for this tool was thought out ahead of time, 
+some pieces were decided by the "huh... I guess I'll do it that way" method.
+The prime example there is module naming.  Had I thought about it before-hand,
+I would have set things up so that module names always matched the table name
+they relate to exactly.  However, since I wasn't thinking about it, module
+names have turned out to be plurals, while I generally name tables in the 
+singular.  There's no logic or reason behind that -- it's just how I happen
+to do things.  There's no reason to stick with this as a standard if you don't
+want to, but all modules I make will probably hold to it.

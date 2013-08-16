@@ -1,0 +1,20 @@
+<?php
+
+echo "<p>Congratulations, you've made it to the main page!</p>";
+
+if(isset($config["system"]["module_dir"]))
+ { # Begin config file mod check
+  $mod_list = $config["system"]["module_dir"] . "/active_mods.txt";
+  logger('debug', "Config checked, mod list is $mod_list");
+
+  if(file_exists($mod_list))
+   { # Begin mod list check
+    $modules = file($mod_list);
+    foreach ($modules as $mod)
+     { # Begin listing mods
+      echo '<p><a href="./core.php?core_func=mod&module=' . $mod . '">Go to ' . $mod . '</a><br/>';
+     } # End listing mods
+   } # End mod list check
+ } # End config file mod check
+
+?>

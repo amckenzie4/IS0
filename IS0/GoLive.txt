@@ -1,0 +1,16 @@
+GoLive.txt
+----------
+
+To bring the system live, we need:
+
+
+* A way to deal with CNAME entries
+* A way to create the dhcpd.conf files.
+* A way to create the named files.
+* A way to get the dhcpd.conf and named files to multivac.
+* A way to restart dhcpd and named.
+* Changes to the main DB:
+	- Add tables department, operating_system
+	- Add columns to tables:
+		- Subnet: reserve, pool1, pool1_directives, pool2, pool2_directives
+		- Host: type (SET ALL TO "A"),

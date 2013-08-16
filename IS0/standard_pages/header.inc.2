@@ -1,0 +1,15 @@
+<CENTER>
+<TABLE WIDTH="100%">
+<TR><TH ALIGN=LEFT>
+<?php
+if ( $_SESSION[guest] )
+ { echo "Browsing " . $_SESSION['uid'] ."'s collection"; }
+else
+ { echo "Welcome, " . $_SESSION['uid'] . "."; }
+?>
+</TH>
+<TD ALIGN=RIGHT><?php date("H:i T --  d F Y") ;?></TD></TR>
+<TD ALIGN=RIGHT COLSPAN=2><a href="./core.php?core_func=logout">Log Off</a>
+</TABLE>
+</CENTER>
+

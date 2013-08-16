@@ -1,0 +1,65 @@
+Modules.txt
+-----------
+
+  IS uses modules to deal with different types of database.  In general,
+a module can be designed to deal with just about anything, but there are some
+guidelines to keep everything consistent.
+
+  This documentation is for a module called "inventory_item", which deals with
+a table of the same name.  Starting at the base IS directory, the standard is
+to use the following file structure: 
+
+1) modules/inventory_item  <-- the module directory.
+
+2) modules/inventory_item/inventory_item.php  <-- the base page.  This may 
+   include some basic information (number of items currently in the DB, for
+   instance).
+
+3) modules/inventory_item/inventory_item_mod_form.php <-- the form that allows 
+   you to modify the inventory_item table.  It sends to...
+
+4) modules/inventory_item/inventory_item_mod_submit.php <-- checks the data 
+   from (3) and sends it to the DB.
+
+5) modules/inventory_item_add_form.php <-- the form that allows you to add a
+   new row to the table.  It sends to...
+
+6) modules/inventory_item/inventory_item_add_submit.php  <-- checks the data 
+   from (5) and inserts it into the DB.
+
+7) modules/inventory_item/inventory_item_search_form.php <-- a form, more or 
+   less complex, that allows searching for items within the table.  Multi-
+   table searches may also be necessary, depending on the db.  Submits to...
+
+8) modules/inventory_item/inventory_item_search_submit.php <-- checks the data 
+   from (7), queries the db, and renders the results.  
+
+9) modules/inventory_item/inventory_item_item_view.php <-- shows the complete
+   record for a single item.
+
+10) modules/inventory_item/inventory_item_delete_form.php <-- shows the complete record, with a "Click to delete" button at the bottom.  I'll probably just use
+ an include to insert the view from (9) here, rather than completely rebuilding
+ it.
+
+11) module/inventory_item/inventory_item_delete_submit.php <-- Does the actual
+    work of deleting the item from (10) from the database.
+
+  While this is assumed to be the standard, the only truly critical files are
+the directory (modules/inventory_item in this case) and the primary module
+file (modules/inventory_item/inventory_item.php).  Beyond that, everything is
+done manually, so changes can be made.  For instance, a uses prefs module will
+probably only need to consist of a form to make changes and a file to make the
+submission.
+
+
+Interaction with main-page.html
+-------------------------------
+
+  By default, main_page.html automatically generates a list of links based on
+the file modules/active_mods.txt.  For each line in the file it creates a link
+that points to core.php?core_func=main&module=[line].  It's important that
+each line be the full name of both the directory the module lives in and the
+name, less .php, of the primary module file.
+
+
+
